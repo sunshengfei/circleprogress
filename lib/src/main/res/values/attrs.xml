@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CirclePlayBar">
+        <attr name="cpb_fill" format="boolean" />
+        <attr name="cpb_outline" format="boolean" />
+        <attr name="cpb_progress" format="integer" />
+        <attr name="cpb_progress_radius" format="float" />
+        <attr name="cpb_progressbar_color" format="color" />
+        <attr name="cpb_progressbar_fillcolor" format="color" />
+        <attr name="cpb_progress_loading" format="integer" />
+        <attr name="cpb_background_progressbar_color" format="color" />
+        <attr name="cpb_progressbar_width" format="dimension" />
+        <attr name="cpb_background_progressbar_width" format="dimension" />
+        <attr name="cpb_background_cpb_gutter" format="dimension" />
+    </declare-styleable>
+</resources>

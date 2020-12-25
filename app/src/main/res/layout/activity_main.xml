@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <com.github.sunshengfei.circleprogress.CircleProgress
+        android:id="@+id/progressPlaybar"
+        android:layout_width="158dp"
+        android:layout_height="158dp"
+        app:cpb_background_cpb_gutter="18dp"
+        app:cpb_background_progressbar_color="#ff4400"
+        app:cpb_progressbar_fillcolor="#00FF00"
+        app:cpb_background_progressbar_width="6dp"
+        app:cpb_progress="82"
+        app:cpb_progress_loading="116"
+        app:cpb_progressbar_color="#ff7788"
+        app:cpb_progressbar_width="14dp"
+        app:cpb_outline="true"
+        app:cpb_fill="true"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

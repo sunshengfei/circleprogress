@@ -1,0 +1,112 @@
+apply plugin: 'com.android.library'
+
+group = 'com.github.sunshengfei'
+ext {
+// 从Github上clone下来的项目的本地地址
+    GITHUB_REPO_PATH = "../dist/"
+    PUBLISH_GROUP_ID = 'com.github.sunshengfei'
+    PUBLISH_ARTIFACT_ID = 'circleprogress'
+    PUBLISH_VERSION = '1.0.0'//版本号
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName project.PUBLISH_VERSION
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+}
+
+
+
+apply plugin: 'maven'
+
+task javadocJar(type: Jar, dependsOn: 'sourcesJar') {
+    archiveClassifier.set('javadoc')
+    from android.sourceSets.main.java.srcDirs
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
+
+//artifacts.add('javadocJar','sourcesJar')
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+//tasks.withType(Jar){jarTask->
+//    if(jarTask.name.equals('packageReleaseJar')){
+//        jarTask.from android.sourceSets.main.java.srcDirs
+//    }
+//}
+//
+//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.github.panpf.bintray-publish'
+publish {
+    userOrg = 'sunshengfei'
+    repoName = 'mirai'
+    groupId = project.PUBLISH_GROUP_ID
+    artifactId = project.PUBLISH_ARTIFACT_ID
+    publishVersion = project.PUBLISH_VERSION//版本号
+    uploadName = project.PUBLISH_ARTIFACT_ID
+    desc = 'CircleProgress for Android'
+    website = 'https://github.com/sunshengfei/circleprogress.git'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //本地maven仓库地址,也可以使用远程maven仓库
+            def deployPath = file(project.GITHUB_REPO_PATH)
+            repository(url: "file://${deployPath.absolutePath}")
+            pom.project {
+                groupId project.PUBLISH_GROUP_ID
+                artifactId project.PUBLISH_ARTIFACT_ID
+                version project.PUBLISH_VERSION
+            }
+        }
+    }
+}
